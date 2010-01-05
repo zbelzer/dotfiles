@@ -3,8 +3,7 @@
 HOME_DIR="~"
 rvm_path=$HOME_DIR/.rvm
 
-if [ -d $HOME_DIR/.oh-my-zsh ]
-then
+if [ -d $HOME_DIR/.oh-my-zsh ]; then
     echo "You already have Oh My Zsh installed. You'll need to remove $HOME_DIR/.oh-my-zsh if you want to reinstall"
     /bin/bash $HOME_DIR/.oh-my-zsh/tools/upgrade.sh
 else
@@ -13,7 +12,7 @@ else
 fi
 
 
-if [ -d $HOME_DIR/.zbelzer-dotfiles]
+if [ -d $HOME_DIR/.zbelzer-dotfiles]; then
     echo "Updatig zbelzer's dotfiles..."
     cd $HOME_DIR/.zbelzer-dotfiles
     /usr/bin/env git pull
