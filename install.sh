@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOME_DIR="/home/`whoami`"
+HOME_DIR="~"
 rvm_path=$HOME_DIR/.rvm
 
 if [ -d $HOME_DIR/.oh-my-zsh ]
@@ -12,15 +12,22 @@ else
     wget http://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | /bin/bash
 fi
 
-echo "Cloning zbelzer's dotfiles..."
-cp -rf ~/dotfiles ~/.dotfiles
-#/usr/bin/env git clone git://github.com/zbelzer/dotfiles.git $HOME_DIR/.dotfiles
+
+if [ -d $HOME_DIR/.zbelzer-dotfiles]
+    echo "Updatig zbelzer's dotfiles..."
+    cd $HOME_DIR/.zbelzer-dotfiles
+    /usr/bin/env git pull
+    cd $HOME_DIR
+else
+    echo "Cloning zbelzer's dotfiles..."
+    /usr/bin/env git clone git://github.com/zbelzer/dotfiles.git $HOME_DIR/.zbelzer-dotfiles
+fi
 
 echo "Copying custom Zsh scripts to Oh My Zsh..."
-cp $HOME_DIR/.dotfiles/oh-my-zsh/custom/* $HOME_DIR/.oh-my-zsh/custom
+cp $HOME_DIR/.zbelzer-dotfiles/oh-my-zsh/custom/* $HOME_DIR/.oh-my-zsh/custom
 
 echo "Symlinking other dotfiles"
-ln -nsvf $HOME/.dotfiles/.* $HOME 
+ln -nsvf $HOME/.zbelzer-dotfiles/.* $HOME 
 
 if [ -d $rvm_path ]; then
     echo "Found rvm, adding rvm bit to vanilla zshrc config..."
@@ -33,7 +40,7 @@ fi
 # wget http://github.com/jc00ke/scripts/raw/master/install_vim_files -O - | /bin/bash
 
 echo "Using Drew's vim setup"
-/usr/bin/env git clone git://github.com/drewolson/vim_dotfiles.git $HOME/.dotfiles/vim_dotfiles
-ln -nsf $HOME/.dotfiles/vim_dotfiles/vim $HOME/.vim 
+/usr/bin/env git clone git://github.com/drewolson/vim_dotfiles.git $HOME/.zbelzer-dotfiles/vim_dotfiles
+ln -nsf $HOME/.zbelzer-dotfiles/vim_dotfiles/vim $HOME/.vim 
 
 echo "Create a new terminal to be assured things are working"
