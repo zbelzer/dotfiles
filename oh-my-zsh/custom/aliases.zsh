@@ -1,3 +1,4 @@
+export EDITOR="gvim"
 alias ls="ls -G --color=auto"
 
 alias c="./script/console"

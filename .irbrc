@@ -1,19 +1,13 @@
-%w{rubygems wirble}.each { |lib| require lib rescue nil }
+%w{rubygems wirble interactive_editor}.each { |lib| require lib}
+
+if ENV.include?('RAILS_ENV')
+  require 'logger'
+  Object.const_set(:RAILS_DEFAULT_LOGGER, Logger.new(STDOUT))
+end
 
 wirble_opts = {
   :skip_shortcuts => true,
-
-    # don't set the prompt
-    :skip_prompt    => true,
-
-    # override some of the default colors
-    # :colors => {
-    # :open_hash    => :green.
-    # :close_hash   => :green.
-    # :string       => :blue,
-  # },
-
-  # enable color
+  :skip_prompt    => true,
   :init_color     => true,
 }
 
